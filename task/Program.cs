@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace task
 {
@@ -9,7 +10,8 @@ namespace task
         {
             string menuChoice = "";
             List<Item> shoppingList = new List<Item>();
-            while(menuChoice != "6")
+            List<double> unitPriceSum = new List<double>();
+            while(true)
             {
                 Console.Write("1. Add New Item \n2. List All Items \n3. Show Total Cost \n4. Clear List \n5. Save List \n6. Exit \n\n");
                 menuChoice = Console.ReadLine();
@@ -28,7 +30,8 @@ namespace task
                         double unitPrice = int.Parse(Console.ReadLine());
 
                         shoppingList.Add(new Item(title, quantity, unitPrice));
-                        Console.WriteLine();
+                        Console.Write("\nPress any key to return to the main menu\n\n");
+                        Console.ReadKey();
 
                     break;
 
@@ -40,6 +43,17 @@ namespace task
                             counter++;
                         }
                         Console.WriteLine();
+                        break;
+                    
+                    case "3":
+                        foreach(Item i in shoppingList)
+                        {
+                            unitPriceSum.Add(i.unitPrice);
+                        }
+                        Console.WriteLine($"The total cost is {unitPriceSum.Sum()}");
+                        break;
+
+                    case "6":
                         break;
                 }
             }

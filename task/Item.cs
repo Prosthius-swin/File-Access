@@ -20,12 +20,6 @@ namespace task
             quantity = pQuantity;
             unitPrice = pUnitPrice;    
         }    
-
-        public void addItem(Item newItem)
-        {
-            shoppingList.Add(newItem);
-            Console.WriteLine("Item added successfully.\n");
-        }
     }
     class File
     {
