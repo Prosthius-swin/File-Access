@@ -8,30 +8,38 @@ namespace task
         static void Main(string[] args)
         {
             string menuChoice = "";
+            List<Item> shoppingList = new List<Item>();
             while(menuChoice != "6")
             {
                 Console.Write("1. Add New Item \n2. List All Items \n3. Show Total Cost \n4. Clear List \n5. Save List \n6. Exit \n\n");
                 menuChoice = Console.ReadLine();
+                Console.WriteLine();
 
                 switch(menuChoice)
                 {
                     case "1":
                         Console.Write("Enter item name : ");
                         string title = Console.ReadLine();
+
                         Console.Write("Enter quantity : ");
                         int quantity = int.Parse(Console.ReadLine());
+
                         Console.Write("Enter unit price : ");
                         double unitPrice = int.Parse(Console.ReadLine());
 
-                        Item newItem = new Item(title, quantity, unitPrice);
-                          newItem.addItem(newItem);
-                        break;
+                        shoppingList.Add(new Item(title, quantity, unitPrice));
+                        Console.WriteLine();
+
+                    break;
 
                     case "2":
-                        foreach(Item i in newItem.getShoppingList())
+                        int counter = 1;
+                        foreach(Item i in shoppingList)
                         {
-                            Console.Write($"{i.title}, {i.quantity}, {i.unitPrice}");
+                            Console.Write($"Item {counter} : {i.title}, {i.quantity}, {i.unitPrice}\n");
+                            counter++;
                         }
+                        Console.WriteLine();
                         break;
                 }
             }

@@ -24,12 +24,7 @@ namespace task
         public void addItem(Item newItem)
         {
             shoppingList.Add(newItem);
-            Console.WriteLine("Item added successfully.");
-        }
-
-        public List<Item> getShoppingList()
-        {
-            return shoppingList;
+            Console.WriteLine("Item added successfully.\n");
         }
     }
     class File
