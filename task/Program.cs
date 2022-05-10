@@ -29,7 +29,7 @@ namespace task
                 quantity = int.Parse(values[b]);
                 unitPrice = double.Parse(values[c]);
 
-                shoppingList.Add(new Item(title,quantity,unitPrice));
+                shoppingList.Add(new Item(title, quantity, unitPrice));
 
                 a += 3;
                 b += 3;
@@ -54,7 +54,7 @@ namespace task
                         Console.Write("Enter unit price : ");
                         unitPrice = int.Parse(Console.ReadLine());
 
-                        shoppingList.Add(new Item(title,quantity,unitPrice));
+                        shoppingList.Add(new Item(title, quantity, unitPrice));
                         Console.Write("\nPress 'Enter' to return to the main menu\n------------------------\n\n");
                         while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
