@@ -108,9 +108,9 @@ namespace task
                 break;
             }
 
-            while(menuChoice != "7")
+            while(menuChoice != "8")
             {
-                Console.Write("1. Add New Item \n2. List All Items in Current List \n3. Show Total Cost \n4. Clear List \n5. Save List \n6. List All Saved Shopping Lists \n7. Exit \n\n");
+                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Exit \n\n");
                 menuChoice = Console.ReadLine();
                 Console.WriteLine();
 
@@ -194,8 +194,12 @@ namespace task
                         while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
 
-                    //Exit
                     case "7":
+
+                        break;
+
+                    //Exit
+                    case "8":
                         Console.WriteLine("Thank you for using the Shopping List App");
                         break;
                 }
