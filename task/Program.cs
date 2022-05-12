@@ -19,11 +19,6 @@ namespace task
             int b = 5;
             int c = 6;
 
-            //Debugging
-            //int a = 0;
-            //int b = 1;
-            //int c = 2;
-            
             //Used to skip first two lines in .csv to prevent adding them to shoppingList
             int skip;
 
@@ -62,8 +57,8 @@ namespace task
                 case 1:        
                     break;
                 
-                case >= 2:
                 //Reads in saved list
+                case >= 2:              
                 string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
                 string savedListVar = string.Join(",", savedListArr);
                 var values = savedListVar.Split(',');
@@ -71,16 +66,13 @@ namespace task
                 skip = 1;
                 foreach (var item in savedListArr)
                 {
-                    //Console.WriteLine("loop");
                     //To prevent adding in headings and blank line
                     if(skip <=2)
                     {
                         skip++;
-                        //Console.WriteLine(skip);
                         continue;
                     }                                      
                     title = values[a].ToString();
-                    //Console.WriteLine(title);
                     quantity = int.Parse(values[b]);
                     unitPrice = double.Parse(values[c]);
 
@@ -95,7 +87,7 @@ namespace task
                 counter = 1;
                 foreach(Item i in shoppingList)
                 {
-                    //To prevent adding in headings and blank line
+                    //To prevent adding in headings and blank line, not needed anymore, don't know why
                     if(skip <=2)
                     {
                         skip++;
@@ -169,7 +161,7 @@ namespace task
                         counter = 1;
                         foreach(Item i in shoppingList)
                             {
-                                //To prevent adding in headings and blank line
+                                //To prevent adding in headings and blank line, not needed anymore, don't know why
                                 /*if(skip <=2)
                                 {
                                     skip++;
