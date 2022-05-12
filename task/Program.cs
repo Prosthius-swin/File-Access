@@ -13,7 +13,7 @@ namespace task
             List<Item> shoppingList = new List<Item>();
             List<double> unitPriceSum = new List<double>();
 
-            //Required to load in list
+            //Array positions to load in list
             int a = 4;
             int b = 5;
             int c = 6;
