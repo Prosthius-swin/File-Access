@@ -13,20 +13,25 @@ namespace task
             List<Item> shoppingList = new List<Item>();
             List<double> unitPriceSum = new List<double>();
 
+            //Required to load in list
             int a = 4;
             int b = 5;
             int c = 6;
+
+            //So they don't have to be declared in every loop and case
             string title;
             int quantity;
             double unitPrice;
 
-            string[] lines = File.ReadAllLines("./data.csv");
-            string join = string.Join(",", lines);
-            var values = join.Split(',');
+            //Reads in saved list
+            string[] savedListArr = File.ReadAllLines("./data.csv");
+            string savedListVar = string.Join(",", savedListArr);
+            var values = savedListVar.Split(',');
 
             int skip = 1;
-            foreach (var item in lines)
+            foreach (var item in savedListArr)
             {
+                //To prevent adding in headings and blank line
                 if(skip <=2)
                 {
                     skip++;
@@ -51,6 +56,7 @@ namespace task
 
                 switch(menuChoice)
                 {
+                    //Add New Item
                     case "1":
                         Console.Write("Enter item name : ");
                         title = Console.ReadLine();
@@ -66,6 +72,7 @@ namespace task
                         while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
 
+                    //List All Items
                     case "2":
                         int counter = 1;
                         foreach(Item i in shoppingList)
@@ -83,6 +90,7 @@ namespace task
                             while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
                     
+                    //Show Total Cost
                     case "3":
                         foreach(Item i in shoppingList)
                         {
@@ -93,10 +101,12 @@ namespace task
                         while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
 
+                    //Clear List
                     case "4":
                         shoppingList.Clear();
                         break;
 
+                    //Save List
                     case "5":
                         
                         using (StreamWriter writer = new StreamWriter("./data.csv"))  
@@ -110,6 +120,7 @@ namespace task
                         }
                         break;
 
+                    //Exit
                     case "6":
                         Console.WriteLine("Thank you for using the Shopping List App");
                         break;
