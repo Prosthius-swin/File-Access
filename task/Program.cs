@@ -18,6 +18,9 @@ namespace task
             int a = 4;
             int b = 5;
             int c = 6;
+            
+            //Used to skip first two lines in .csv to prevent adding them to shoppingList
+            int skip;
 
             //So they don't have to be declared in every loop and case
             string title;
@@ -25,7 +28,7 @@ namespace task
             double unitPrice;
 
             //Lists all saved shopping lists
-            DirectoryInfo savedShoppingLists = new DirectoryInfo(@"./shopping-lists");
+            DirectoryInfo savedShoppingLists = new DirectoryInfo("./shopping-lists");
 
             FileInfo[] files = savedShoppingLists.GetFiles();
             Console.WriteLine("Select a saved shopping list or start a new list:");
@@ -45,33 +48,40 @@ namespace task
                 Console.WriteLine();
                 listSelection = Console.ReadLine();
             } 
-            Console.WriteLine("------------------------");
+            Console.WriteLine("------------------------\n");
             int listSelectionInt = int.Parse(listSelection) - 2;
             
-
-            //Reads in saved list
-            string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
-            string savedListVar = string.Join(",", savedListArr);
-            var values = savedListVar.Split(',');
-        
-            int skip = 1;
-            foreach (var item in savedListArr)
+            switch(listSelectionInt)
             {
-                //To prevent adding in headings and blank line
-                if(skip <=2)
+                case 1:
+                    break;
+                
+                case >= 2:
+                //Reads in saved list
+                string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
+                string savedListVar = string.Join(",", savedListArr);
+                var values = savedListVar.Split(',');
+            
+                skip = 1;
+                foreach (var item in savedListArr)
                 {
-                    skip++;
-                    continue;
+                    //To prevent adding in headings and blank line
+                    if(skip <=2)
+                    {
+                        skip++;
+                        continue;
+                    }
+                    title = values[a].ToString();
+                    quantity = int.Parse(values[b]);
+                    unitPrice = double.Parse(values[c]);
+
+                    shoppingList.Add(new Item(title, quantity, unitPrice));
+
+                    a += 3;
+                    b += 3;
+                    c += 3;
                 }
-                title = values[a].ToString();
-                quantity = int.Parse(values[b]);
-                unitPrice = double.Parse(values[c]);
-
-                shoppingList.Add(new Item(title, quantity, unitPrice));
-
-                a += 3;
-                b += 3;
-                c += 3;
+                break;
             }
 
             while(menuChoice != "6")
@@ -100,9 +110,11 @@ namespace task
 
                     //List All Items
                     case "2":
+                        skip = 1;
                         counter = 1;
                         foreach(Item i in shoppingList)
                             {
+                                //To prevent adding in headings and blank line
                                 if(skip <=2)
                                 {
                                     skip++;
