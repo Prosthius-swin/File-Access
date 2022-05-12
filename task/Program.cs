@@ -110,7 +110,7 @@ namespace task
 
             while(menuChoice != "8")
             {
-                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Exit \n\n");
+                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Change active list \n8. Exit \n\n");
                 menuChoice = Console.ReadLine();
                 Console.WriteLine();
 
@@ -194,6 +194,7 @@ namespace task
                         while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
 
+                    //Change active list
                     case "7":
 
                         break;
