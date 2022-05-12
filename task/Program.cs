@@ -160,19 +160,19 @@ namespace task
                         skip = 1;
                         counter = 1;
                         foreach(Item i in shoppingList)
+                        {
+                            //To prevent adding in headings and blank line, not needed anymore, don't know why
+                            /*if(skip <=2)
                             {
-                                //To prevent adding in headings and blank line, not needed anymore, don't know why
-                                /*if(skip <=2)
-                                {
-                                    skip++;
-                                    continue;
-                                }*/
-                                Console.Write($"Item {counter} : {i.title}, {i.quantity}, {i.unitPrice}\n");
-                                counter++;
-                            }
-                            Console.WriteLine();
-                            Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                            while (Console.ReadKey().Key != ConsoleKey.Enter){}
+                                skip++;
+                                continue;
+                            }*/
+                            Console.Write($"Item {counter} : {i.title}, {i.quantity}, {i.unitPrice}\n");
+                            counter++;
+                        }
+                        Console.WriteLine();
+                        Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
+                        while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
 
                     //List All Saved Shopping Lists
@@ -188,7 +188,7 @@ namespace task
 
                     //Change active list
                     case "7":
-
+                        
                         break;
 
                     //Exit
