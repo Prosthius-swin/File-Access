@@ -186,10 +186,12 @@ namespace task
 
                     //List All Saved Shopping Lists
                     case "6":
+                        counter = 1;
                         foreach(FileInfo i in files)
                         {
                             Console.WriteLine($"{counter}. {i.Name}");
                             savedShoppingListFileName.Add(i.Name);
+                            counter++;
                         }
                         //Functions.listSavedShoppingLists();
                         Console.WriteLine("\nPress 'Enter' to return to the main menu \n------------------------\n");
