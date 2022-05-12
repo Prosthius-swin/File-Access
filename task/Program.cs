@@ -13,9 +13,9 @@ namespace task
             List<Item> shoppingList = new List<Item>();
             List<double> unitPriceSum = new List<double>();
 
-            int a = 0;
-            int b = 1;
-            int c = 2;
+            int a = 4;
+            int b = 5;
+            int c = 6;
             string title;
             int quantity;
             double unitPrice;
@@ -23,9 +23,16 @@ namespace task
             string[] lines = File.ReadAllLines("./data.csv");
             string join = string.Join(",", lines);
             var values = join.Split(',');
-            foreach (string item in lines)
+
+            int skip = 1;
+            foreach (var item in lines)
             {
-                title = values[a];
+                if(skip <=2)
+                {
+                    skip++;
+                    continue;
+                }
+                title = values[a].ToString();
                 quantity = int.Parse(values[b]);
                 unitPrice = double.Parse(values[c]);
 
@@ -63,6 +70,11 @@ namespace task
                         int counter = 1;
                         foreach(Item i in shoppingList)
                             {
+                                if(skip <=2)
+                                {
+                                    skip++;
+                                    continue;
+                                }
                                 Console.Write($"Item {counter} : {i.title}, {i.quantity}, {i.unitPrice}\n");
                                 counter++;
                             }
@@ -89,7 +101,7 @@ namespace task
                         
                         using (StreamWriter writer = new StreamWriter("./data.csv"))  
                         {  
-                            //writer.Write("Name, Quantity, Price\n\n");
+                            writer.Write("Name, Quantity, Price\n\n");
                             foreach(Item i in shoppingList)
                             {
                                 writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
