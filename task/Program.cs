@@ -35,16 +35,16 @@ namespace task
             //Lists all saved shopping lists
 
             //Functions listSavedShoppingLists = new Functions();
-            Functions.listSavedShoppingLists();
+            //Functions.listSavedShoppingLists();
             
-            /*DirectoryInfo savedShoppingLists = new DirectoryInfo("./shopping-lists");
+            DirectoryInfo savedShoppingLists = new DirectoryInfo("./shopping-lists");
             FileInfo[] files = savedShoppingLists.GetFiles();
             Console.WriteLine("Select a saved shopping list or start a new list:");
             Console.WriteLine();
             Console.WriteLine("1. Start a new shopping list");
 
-            string listSelection = "";
-            int counter = 2;
+            //string listSelection = "";
+            //int counter = 2;
             while(listSelection == "")
             {
                 foreach(FileInfo i in files)
@@ -55,7 +55,7 @@ namespace task
                 }
                 Console.WriteLine();
                 listSelection = Console.ReadLine();
-            }*/
+            }
 
             Console.WriteLine("------------------------\n");
             
@@ -186,12 +186,12 @@ namespace task
 
                     //List All Saved Shopping Lists
                     case "6":
-                        /*foreach(FileInfo i in files)
+                        foreach(FileInfo i in files)
                         {
                             Console.WriteLine($"{counter}. {i.Name}");
                             savedShoppingListFileName.Add(i.Name);
-                        }*/
-                        Functions.listSavedShoppingLists();
+                        }
+                        //Functions.listSavedShoppingLists();
                         Console.WriteLine("\nPress 'Enter' to return to the main menu \n------------------------\n");
                         while (Console.ReadKey().Key != ConsoleKey.Enter){}
                         break;
