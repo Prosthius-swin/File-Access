@@ -12,6 +12,7 @@ namespace task
             string menuChoice = "";
             List<Item> shoppingList = new List<Item>();
             List<double> unitPriceSum = new List<double>();
+            List<string> savedShoppingListFileName = new List<string>();
 
             //Array positions to load in list
             int a = 4;
@@ -23,11 +24,36 @@ namespace task
             int quantity;
             double unitPrice;
 
+            //Lists all saved shopping lists
+            DirectoryInfo savedShoppingLists = new DirectoryInfo(@"./shopping-lists");
+
+            FileInfo[] files = savedShoppingLists.GetFiles();
+            Console.WriteLine("Select a saved shopping list or start a new list:");
+            Console.WriteLine();
+            Console.WriteLine("1. Start a new shopping list");
+
+            string listSelection = "";
+            int counter = 2;
+            while(listSelection == "")
+            {
+                foreach(FileInfo i in files)
+                {
+                    Console.WriteLine($"{counter}. {i.Name}");
+                    savedShoppingListFileName.Add(i.Name);
+                    counter++;
+                }
+                Console.WriteLine();
+                listSelection = Console.ReadLine();
+            } 
+            Console.WriteLine("------------------------");
+            int listSelectionInt = int.Parse(listSelection) - 2;
+            
+
             //Reads in saved list
-            string[] savedListArr = File.ReadAllLines("./data.csv");
+            string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
             string savedListVar = string.Join(",", savedListArr);
             var values = savedListVar.Split(',');
-
+        
             int skip = 1;
             foreach (var item in savedListArr)
             {
@@ -74,7 +100,7 @@ namespace task
 
                     //List All Items
                     case "2":
-                        int counter = 1;
+                        counter = 1;
                         foreach(Item i in shoppingList)
                             {
                                 if(skip <=2)
@@ -108,8 +134,9 @@ namespace task
 
                     //Save List
                     case "5":
-                        
-                        using (StreamWriter writer = new StreamWriter("./data.csv"))  
+                        Console.Write("Enter shopping list name : ");
+                        string shoppingListName = Console.ReadLine();
+                        using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))  
                         {  
                             writer.Write("Name, Quantity, Price\n\n");
                             foreach(Item i in shoppingList)
