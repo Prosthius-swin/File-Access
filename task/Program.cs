@@ -20,16 +20,15 @@ namespace task
 
             //Lists all saved shopping lists
             getSavedShoppingLists(out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection, out counter);
-
-            Console.WriteLine("------------------------\n");
+            printHorizontalLine();
 
             int listSelectionInt = int.Parse(listSelection) - 2;
             List<Item> shoppingList = new List<Item>();
 
-            //So they don't have to be declared in every loop and case
-            string title;
-            int quantity;
-            double unitPrice;
+            //So they don't have to be declared in every loop and case, with dumby data
+            string title = "";
+            int quantity = 1;
+            double unitPrice = 1.1;
             switch (listSelectionInt + 2)
             {
                 //Create new list
@@ -40,33 +39,7 @@ namespace task
 
                 //Reads in saved list
                 case >= 2:
-                    string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
-                    string savedListVar = string.Join(",", savedListArr);
-                    var values = savedListVar.Split(',');
-
-                    //Used to skip first two lines in .csv to prevent adding them to shoppingList
-                    int skip = 1;
-                    int a = 4;
-                    int b = 5;
-                    int c = 6;
-                    foreach (var item in savedListArr)
-                    {
-                        //To prevent adding in headings and blank line
-                        if (skip <= 2)
-                        {
-                            skip++;
-                            continue;
-                        }
-
-                        title = values[a].ToString();
-                        quantity = int.Parse(values[b]);
-                        unitPrice = double.Parse(values[c]);
-                        shoppingList.Add(new Item(title, quantity, unitPrice));
-
-                        a += 3;
-                        b += 3;
-                        c += 3;
-                    }
+                    saveToCurrentFile(savedShoppingListFileName, listSelectionInt, shoppingList, ref title, ref quantity, ref unitPrice);
                     break;
             }
 
@@ -112,7 +85,7 @@ namespace task
 
                     //Save sub-menu
                     case "4":
-                        Console.WriteLine("------------------------\n");
+                        printHorizontalLine();
                         Console.WriteLine("1. Save changes to current list \n2. Save to new list \n3. Return to main menu \n");
                         string saveTypeChoice = Console.ReadLine();
                         Console.WriteLine();
@@ -190,7 +163,7 @@ namespace task
                                 listSelection = Console.ReadLine();
                             }
 
-                            Console.WriteLine("------------------------\n");
+                            printHorizontalLine();
 
                             listSelectionInt = int.Parse(listSelection) - 2;
 
@@ -198,50 +171,13 @@ namespace task
                             {
                                 //Create new list
                                 case 1:
-                                    Console.Write("Enter shopping list name : ");
-                                    string shoppingListName = Console.ReadLine();
-                                    Console.WriteLine();
-                                    using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))
-                                    {
-                                        writer.Write("Name, Quantity, Price\n\n");
-                                        foreach (Item i in shoppingList)
-                                        {
-                                            writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
-                                        }
-                                        Console.WriteLine("Shopping list created succesfully\n");
-                                    }
+                                    saveToNewFile(shoppingList);
                                     postMenuSelection();
                                     break;
 
                                 //Reads in saved list
                                 case >= 2:
-                                    string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
-                                    string savedListVar = string.Join(",", savedListArr);
-                                    var values = savedListVar.Split(',');
-
-                                    //Used to skip first two lines in .csv to prevent adding them to shoppingList
-                                    int skip = 1;
-                                    int a = 4;
-                                    int b = 5;
-                                    int c = 6;
-                                    foreach (var item in savedListArr)
-                                    {
-                                        //To prevent adding in headings and blank line
-                                        if (skip <= 2)
-                                        {
-                                            skip++;
-                                            continue;
-                                        }
-
-                                        title = values[a].ToString();
-                                        quantity = int.Parse(values[b]);
-                                        unitPrice = double.Parse(values[c]);
-                                        shoppingList.Add(new Item(title, quantity, unitPrice));
-
-                                        a += 3;
-                                        b += 3;
-                                        c += 3;
-                                    }
+                                    saveToCurrentFile(savedShoppingListFileName, listSelectionInt, shoppingList, ref title, ref quantity, ref unitPrice);
                                     break;
                             }
                         }
