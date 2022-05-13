@@ -27,5 +27,10 @@ namespace task
                 listSelection = Console.ReadLine();
             }
         }
+        public static void postMenuSelection()
+        {
+            Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+        }
     }
 }

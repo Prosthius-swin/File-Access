@@ -46,8 +46,7 @@ namespace task
                         }
                         Console.WriteLine("Shopping list created succesfully\n");
                     }
-                    Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                    postMenuSelection();
                     break;
 
                 //Reads in saved list
@@ -103,8 +102,7 @@ namespace task
                         unitPrice = int.Parse(Console.ReadLine());
 
                         shoppingList.Add(new Item(title, quantity, unitPrice));
-                        Console.Write("\nPress 'Enter' to return to the main menu\n------------------------\n\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                        postMenuSelection();
                         break;
 
                     //Show Total Cost
@@ -115,8 +113,7 @@ namespace task
                             unitPriceSum.Add(price.unitPrice);
                         }
                         Console.WriteLine($"The total cost is {unitPriceSum.Sum()}\n");
-                        Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                        postMenuSelection();
                         break;
 
                     //Clear List
@@ -143,8 +140,7 @@ namespace task
                                     }
                                     Console.WriteLine("Shopping list saved succesfully\n");
                                 }
-                                Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                                postMenuSelection();
                                 break;
 
                             //Save to new list
@@ -160,8 +156,7 @@ namespace task
                                     }
                                     Console.WriteLine("Shopping list saved succesfully\n");
                                 }
-                                Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                                postMenuSelection();
                                 break;
 
                             //Return to main menu
@@ -179,8 +174,7 @@ namespace task
                             counter++;
                         }
                         Console.WriteLine();
-                        Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                        postMenuSelection();
                         break;
 
                     //List All Saved Shopping Lists
@@ -192,8 +186,7 @@ namespace task
                             savedShoppingListFileName.Add(i.Name);
                             counter++;
                         }
-                        Console.WriteLine("\nPress 'Enter' to return to the main menu \n------------------------\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                        postMenuSelection();
                         break;
 
                     //Change active list
@@ -238,8 +231,7 @@ namespace task
                                         }
                                         Console.WriteLine("Shopping list created succesfully\n");
                                     }
-                                    Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                                    postMenuSelection();
                                     break;
 
                                 //Reads in saved list
