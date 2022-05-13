@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-//using functions;
 
 namespace task
 {
@@ -21,7 +20,7 @@ namespace task
 
             Console.WriteLine(printSavedOrNewListChoice);
 
-            //Lists all saved shopping lists
+            //Lists all saved shopping lists         
             getSavedShoppingLists(out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection, out counter);
             printHorizontalLine();
 
