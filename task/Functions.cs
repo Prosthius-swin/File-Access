@@ -27,10 +27,5 @@ namespace task
                 listSelection = Console.ReadLine();
             }
         }
-
-        public static string getListSelection()
-        {
-            return listSelection;
-        }
     }
 }
