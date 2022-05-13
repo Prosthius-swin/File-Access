@@ -17,6 +17,7 @@ namespace task
             int counter;
             string menu = "1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Change active list \n8. Exit \n\n";
             string printSavedOrNewListChoice = "Select a saved shopping list or start a new list: \n\n1. Start a new shopping list";
+            string saveSubMenu = "1. Save changes to current list \n2. Save to new list \n3. Return to main menu \n";
 
             Console.WriteLine(printSavedOrNewListChoice);
 
@@ -88,7 +89,7 @@ namespace task
                     //Save sub-menu
                     case "4":
                         printHorizontalLine();
-                        Console.WriteLine("1. Save changes to current list \n2. Save to new list \n3. Return to main menu \n");
+                        Console.WriteLine(saveSubMenu);
                         string saveTypeChoice = Console.ReadLine();
                         Console.WriteLine();
                         switch (saveTypeChoice)
