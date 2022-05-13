@@ -10,44 +10,20 @@ namespace task
     {
         static void Main(string[] args)
         {
-            string menuChoice = "";
-            List<Item> shoppingList = new List<Item>();
-            List<double> unitPriceSum = new List<double>();
-            List<string> savedShoppingListFileName = new List<string>();
-
-            string listSelection = "";
-            int counter = 2;
-            
-
-            //Array positions to load in list
-            int a = 4;
-            int b = 5;
-            int c = 6;
-
-            //Used to skip first two lines in .csv to prevent adding them to shoppingList
-            int skip;
-
-            //So they don't have to be declared in every loop and case
-            string title;
-            int quantity;
-            double unitPrice;
-
-            //Lists all saved shopping lists
-
-            //Functions listSavedShoppingLists = new Functions();
-            //Functions.listSavedShoppingLists();
-            
-            DirectoryInfo savedShoppingLists = new DirectoryInfo("./shopping-lists");
-            FileInfo[] files = savedShoppingLists.GetFiles();
             Console.WriteLine("Select a saved shopping list or start a new list:");
             Console.WriteLine();
             Console.WriteLine("1. Start a new shopping list");
 
-            //string listSelection = "";
-            //int counter = 2;
-            while(listSelection == "")
+            //Lists all saved shopping lists
+            DirectoryInfo savedShoppingLists = new DirectoryInfo("./shopping-lists");
+            FileInfo[] files = savedShoppingLists.GetFiles();
+            List<string> savedShoppingListFileName = new List<string>();
+            string listSelection = "";
+            int counter = 2;
+            
+            while (listSelection == "")
             {
-                foreach(FileInfo i in files)
+                foreach (FileInfo i in files)
                 {
                     Console.WriteLine($"{counter}. {i.Name}");
                     savedShoppingListFileName.Add(i.Name);
@@ -60,29 +36,39 @@ namespace task
             Console.WriteLine("------------------------\n");
             
             int listSelectionInt = int.Parse(listSelection) - 2;
-            switch(listSelectionInt + 2)
+            List<Item> shoppingList = new List<Item>();
+
+            //So they don't have to be declared in every loop and case
+            string title;
+            int quantity;
+            double unitPrice;
+            switch (listSelectionInt + 2)
             {
                 //Skip reading in list
-                case 1:        
+                case 1:
                     break;
-                
+
                 //Reads in saved list
-                case >= 2:              
+                case >= 2:
                     string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
                     string savedListVar = string.Join(",", savedListArr);
                     var values = savedListVar.Split(',');
 
-                    skip = 1;
+                    //Used to skip first two lines in .csv to prevent adding them to shoppingList
+                    int skip = 1;
                     foreach (var item in savedListArr)
                     {
                         //To prevent adding in headings and blank line
-                        if(skip <=2)
+                        if (skip <= 2)
                         {
                             skip++;
                             continue;
-                        }                                      
+                        }
+                        int a = 4;
                         title = values[a].ToString();
+                        int b = 5;
                         quantity = int.Parse(values[b]);
+                        int c = 6;
                         unitPrice = double.Parse(values[c]);
 
                         shoppingList.Add(new Item(title, quantity, unitPrice));
@@ -91,31 +77,17 @@ namespace task
                         b += 3;
                         c += 3;
                     }
-
-                    /*skip = 1;
-                    counter = 1;
-                    foreach(Item i in shoppingList)
-                    {
-                        //To prevent adding in headings and blank line, not needed anymore, don't know why
-                        if(skip <=2)
-                        {
-                            skip++;
-                            Console.WriteLine(i);
-                            continue;
-                        }                   
-                        Console.Write($"Item {counter} : {i.title}, {i.quantity}, {i.unitPrice}\n");
-                        counter++;
-                    }*/
                     break;
             }
 
-            while(menuChoice != "8")
+            string menuChoice = "";
+            while (menuChoice != "9")
             {
-                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Change active list \n8. Exit \n\n");
+                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save As \n5. Save Current List \n6. List All Items in Current List \n7. List All Saved Shopping Lists \n8. Change active list \n9. Exit \n\n");
                 menuChoice = Console.ReadLine();
                 Console.WriteLine();
 
-                switch(menuChoice)
+                switch (menuChoice)
                 {
                     //Add New Item
                     case "1":
@@ -130,18 +102,19 @@ namespace task
 
                         shoppingList.Add(new Item(title, quantity, unitPrice));
                         Console.Write("\nPress 'Enter' to return to the main menu\n------------------------\n\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter){}
+                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                         break;
-                    
+
                     //Show Total Cost
                     case "2":
-                        foreach(Item price in shoppingList)
+                        List<double> unitPriceSum = new List<double>();
+                        foreach (Item price in shoppingList)
                         {
                             unitPriceSum.Add(price.unitPrice);
                         }
                         Console.WriteLine($"The total cost is {unitPriceSum.Sum()}\n");
                         Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter){}
+                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                         break;
 
                     //Clear List
@@ -149,62 +122,69 @@ namespace task
                         shoppingList.Clear();
                         break;
 
-                    //Save List
+                    //Save As
                     case "4":
                         Console.Write("Enter shopping list name : ");
                         string shoppingListName = Console.ReadLine();
-                        using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))  
-                        {  
+                        using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))
+                        {
                             writer.Write("Name, Quantity, Price\n\n");
-                            foreach(Item i in shoppingList)
+                            foreach (Item i in shoppingList)
                             {
                                 writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
                             }
                             Console.WriteLine("Shopping list saved succesfully\n");
                         }
                         break;
-                    
-                    //List All Items in Current List
+
+                    //Save List
                     case "5":
-                        skip = 1;
-                        counter = 1;
-                        foreach(Item i in shoppingList)
+                        using (StreamWriter writer = new StreamWriter($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}"))
                         {
-                            //To prevent adding in headings and blank line, not needed anymore, don't know why
-                            /*if(skip <=2)
+                            writer.Write("Name, Quantity, Price\n\n");
+                            foreach (Item i in shoppingList)
                             {
-                                skip++;
-                                continue;
-                            }*/
+                                writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
+                            }
+                            Console.WriteLine("Shopping list saved succesfully\n");
+                        }
+                        Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
+                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                        break;
+
+                    //List All Items in Current List
+                    case "6":
+                        counter = 1;
+                        foreach (Item i in shoppingList)
+                        {
                             Console.Write($"Item {counter} : {i.title}, {i.quantity}, {i.unitPrice}\n");
                             counter++;
                         }
                         Console.WriteLine();
                         Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter){}
+                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                         break;
 
                     //List All Saved Shopping Lists
-                    case "6":
+                    case "7":
                         counter = 1;
-                        foreach(FileInfo i in files)
+                        foreach (FileInfo i in files)
                         {
                             Console.WriteLine($"{counter}. {i.Name}");
                             savedShoppingListFileName.Add(i.Name);
                             counter++;
                         }
-                        //Functions.listSavedShoppingLists();
                         Console.WriteLine("\nPress 'Enter' to return to the main menu \n------------------------\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter){}
+                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                         break;
 
                     //Change active list
-                    case "7":
-                        
+                    case "8":
+
                         break;
 
                     //Exit
-                    case "8":
+                    case "9":
                         Console.WriteLine("Thank you for using the Shopping List App");
                         break;
                 }
