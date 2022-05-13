@@ -2,7 +2,7 @@ using System;
 
 namespace task
 {
-    class Item
+    public class Item
     {
         public string title { get; set; }
         public int quantity { get; set; }

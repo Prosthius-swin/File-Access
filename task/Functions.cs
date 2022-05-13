@@ -32,5 +32,20 @@ namespace task
             Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
             while (Console.ReadKey().Key != ConsoleKey.Enter) { }
         }
+        public static void saveToNewFile(List<Item> shoppingList)
+        {
+            Console.Write("Enter shopping list name : ");
+            string shoppingListName = Console.ReadLine();
+            Console.WriteLine();
+            using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))
+            {
+                writer.Write("Name, Quantity, Price\n\n");
+                foreach (Item i in shoppingList)
+                {
+                    writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
+                }
+                Console.WriteLine("Shopping list created succesfully\n");
+            }
+        }
     }
 }
