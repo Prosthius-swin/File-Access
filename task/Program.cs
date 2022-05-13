@@ -138,24 +138,28 @@ namespace task
                     //Change active list
                     case "7":
                         {
-                            Console.WriteLine(printSavedOrNewListChoice);
+                            Console.WriteLine("Select a saved shopping list or start a new list: \n\n1. Return to the main menu \n2. Start a new shopping list");
 
                             //Lists all saved shopping lists
                             getSavedShoppingLists(out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection, out counter);
                             printHorizontalLine();
 
-                            listSelectionInt = int.Parse(listSelection) - 2;
+                            listSelectionInt = int.Parse(listSelection);
 
-                            switch (listSelectionInt + 2)
+                            switch (listSelectionInt)
                             {
+                                //Return to main menu
+                                case 1:                               
+                                    break;
+                                    
                                 //Create new list
-                                case 1:
+                                case 2:
                                     saveToNewFile(shoppingList);
                                     postMenuSelection();
                                     break;
 
                                 //Reads in saved list
-                                case >= 2:
+                                case >= 3:
                                     loadFile(savedShoppingListFileName, listSelectionInt, shoppingList, ref title, ref quantity, ref unitPrice);
                                     break;
                             }
