@@ -282,9 +282,9 @@ namespace task
                                     b += 3;
                                     c += 3;
                                 }
-                                break;
-                            }
+                            break;
                         }
+                    }
                         break;
 
                     //Exit
