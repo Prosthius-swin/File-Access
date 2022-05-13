@@ -15,6 +15,7 @@ namespace task
             List<string> savedShoppingListFileName;
             string listSelection;
             int counter;
+            string menu = "1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Change active list \n8. Exit \n\n";
 
             Console.WriteLine("Select a saved shopping list or start a new list: \n\n1. Start a new shopping list");
 
@@ -39,14 +40,14 @@ namespace task
 
                 //Reads in saved list
                 case >= 2:
-                    saveToCurrentFile(savedShoppingListFileName, listSelectionInt, shoppingList, ref title, ref quantity, ref unitPrice);
+                    loadFile(savedShoppingListFileName, listSelectionInt, shoppingList, ref title, ref quantity, ref unitPrice);
                     break;
             }
 
             string menuChoice = "";
             while (menuChoice != "8")
             {
-                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Change active list \n8. Exit \n\n");
+                Console.Write(menu);
                 menuChoice = Console.ReadLine();
                 Console.WriteLine();
 
@@ -93,15 +94,7 @@ namespace task
                         {
                             //Save changes to current list
                             case "1":
-                                using (StreamWriter writer = new StreamWriter($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}"))
-                                {
-                                    writer.Write("Name, Quantity, Price\n\n");
-                                    foreach (Item i in shoppingList)
-                                    {
-                                        writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
-                                    }
-                                    Console.WriteLine("Shopping list saved succesfully\n");
-                                }
+                                saveToCurrentFile(savedShoppingListFileName, listSelectionInt, shoppingList);
                                 postMenuSelection();
                                 break;
 
@@ -177,7 +170,7 @@ namespace task
 
                                 //Reads in saved list
                                 case >= 2:
-                                    saveToCurrentFile(savedShoppingListFileName, listSelectionInt, shoppingList, ref title, ref quantity, ref unitPrice);
+                                    loadFile(savedShoppingListFileName, listSelectionInt, shoppingList, ref title, ref quantity, ref unitPrice);
                                     break;
                             }
                         }
