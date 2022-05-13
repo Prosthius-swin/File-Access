@@ -81,9 +81,9 @@ namespace task
             }
 
             string menuChoice = "";
-            while (menuChoice != "9")
+            while (menuChoice != "8")
             {
-                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save As \n5. Save Current List \n6. List All Items in Current List \n7. List All Saved Shopping Lists \n8. Change active list \n9. Exit \n\n");
+                Console.Write("1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Change active list \n8. Exit \n\n");
                 menuChoice = Console.ReadLine();
                 Console.WriteLine();
 
@@ -122,38 +122,54 @@ namespace task
                         shoppingList.Clear();
                         break;
 
-                    //Save As
+                    //Save sub-menu
                     case "4":
-                        Console.Write("Enter shopping list name : ");
-                        string shoppingListName = Console.ReadLine();
-                        using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))
+                        Console.WriteLine("------------------------\n");
+                        Console.WriteLine("1. Save changes to current list \n2. Save to new list \n3. Return to main menu \n");
+                        string saveTypeChoice = Console.ReadLine();
+                        Console.WriteLine();
+                        switch(saveTypeChoice)
                         {
-                            writer.Write("Name, Quantity, Price\n\n");
-                            foreach (Item i in shoppingList)
-                            {
-                                writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
-                            }
-                            Console.WriteLine("Shopping list saved succesfully\n");
+                            //Save changes to current list
+                            case "1":
+                                using (StreamWriter writer = new StreamWriter($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}"))
+                                {
+                                    writer.Write("Name, Quantity, Price\n\n");
+                                    foreach (Item i in shoppingList)
+                                    {
+                                        writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
+                                    }
+                                    Console.WriteLine("Shopping list saved succesfully\n");
+                                }
+                                Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
+                                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                                break;
+                            
+                            //Save to new list
+                            case "2":
+                                Console.Write("Enter shopping list name : ");
+                                string shoppingListName = Console.ReadLine();
+                                using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))
+                                {
+                                    writer.Write("Name, Quantity, Price\n\n");
+                                    foreach (Item i in shoppingList)
+                                    {
+                                        writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
+                                    }
+                                    Console.WriteLine("Shopping list saved succesfully\n");
+                                }
+                                Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
+                                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                                break;
+                            
+                            //Return to main menu
+                            case "3":
+                                break;                      
                         }
-                        break;
-
-                    //Save List
-                    case "5":
-                        using (StreamWriter writer = new StreamWriter($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}"))
-                        {
-                            writer.Write("Name, Quantity, Price\n\n");
-                            foreach (Item i in shoppingList)
-                            {
-                                writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
-                            }
-                            Console.WriteLine("Shopping list saved succesfully\n");
-                        }
-                        Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
-                        while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                         break;
 
                     //List All Items in Current List
-                    case "6":
+                    case "5":
                         counter = 1;
                         foreach (Item i in shoppingList)
                         {
@@ -166,7 +182,7 @@ namespace task
                         break;
 
                     //List All Saved Shopping Lists
-                    case "7":
+                    case "6":
                         counter = 1;
                         foreach (FileInfo i in files)
                         {
@@ -179,12 +195,12 @@ namespace task
                         break;
 
                     //Change active list
-                    case "8":
+                    case "7":
 
                         break;
 
                     //Exit
-                    case "9":
+                    case "8":
                         Console.WriteLine("Thank you for using the Shopping List App");
                         break;
                 }
