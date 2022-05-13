@@ -55,7 +55,7 @@ namespace task
             Console.WriteLine("------------------------\n");
         }
         //
-        public static void saveToCurrentFile(List<string> savedShoppingListFileName, int listSelectionInt, List<Item> shoppingList, ref string title, ref int quantity, ref double unitPrice)
+        public static void loadFile(List<string> savedShoppingListFileName, int listSelectionInt, List<Item> shoppingList, ref string title, ref int quantity, ref double unitPrice)
         {
             string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
             string savedListVar = string.Join(",", savedListArr);
@@ -83,6 +83,19 @@ namespace task
                 a += 3;
                 b += 3;
                 c += 3;
+            }
+        }
+        //
+        public static void saveToCurrentFile(List<string> savedShoppingListFileName, int listSelectionInt, List<Item> shoppingList)
+        {
+            using (StreamWriter writer = new StreamWriter($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}"))
+            {
+                writer.Write("Name, Quantity, Price\n\n");
+                foreach (Item i in shoppingList)
+                {
+                    writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
+                }
+                Console.WriteLine("Shopping list saved succesfully\n");
             }
         }
     }
