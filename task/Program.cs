@@ -10,17 +10,15 @@ namespace task
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Select a saved shopping list or start a new list:");
-            Console.WriteLine();
-            Console.WriteLine("1. Start a new shopping list");
+            Console.WriteLine("Select a saved shopping list or start a new list: \n1. Start a new shopping list\n");
 
             //Lists all saved shopping lists
             DirectoryInfo savedShoppingLists = new DirectoryInfo("./shopping-lists");
             FileInfo[] files = savedShoppingLists.GetFiles();
             List<string> savedShoppingListFileName = new List<string>();
+
             string listSelection = "";
             int counter = 2;
-            
             while (listSelection == "")
             {
                 foreach (FileInfo i in files)
@@ -70,6 +68,9 @@ namespace task
 
                     //Used to skip first two lines in .csv to prevent adding them to shoppingList
                     int skip = 1;
+                    int a = 4;
+                    int b = 5;
+                    int c = 6;
                     foreach (var item in savedListArr)
                     {
                         //To prevent adding in headings and blank line
@@ -78,13 +79,10 @@ namespace task
                             skip++;
                             continue;
                         }
-                        int a = 4;
+                        
                         title = values[a].ToString();
-                        int b = 5;
-                        quantity = int.Parse(values[b]);
-                        int c = 6;
+                        quantity = int.Parse(values[b]);                       
                         unitPrice = double.Parse(values[c]);
-
                         shoppingList.Add(new Item(title, quantity, unitPrice));
 
                         a += 3;
@@ -210,7 +208,83 @@ namespace task
 
                     //Change active list
                     case "7":
+                    {
+                        Console.WriteLine("Select a saved shopping list or start a new list: \n1. Start a new shopping list\n");
 
+                        //Lists all saved shopping lists
+                        savedShoppingLists = new DirectoryInfo("./shopping-lists");
+                        files = savedShoppingLists.GetFiles();
+
+                        listSelection = "";
+                        counter = 2;
+                        while (listSelection == "")
+                        {
+                            foreach (FileInfo i in files)
+                            {
+                                Console.WriteLine($"{counter}. {i.Name}");
+                                savedShoppingListFileName.Add(i.Name);
+                                counter++;
+                            }
+                            Console.WriteLine();
+                            listSelection = Console.ReadLine();
+                        }
+
+                        Console.WriteLine("------------------------\n");
+                        
+                        listSelectionInt = int.Parse(listSelection) - 2;
+
+                        switch (listSelectionInt + 2)
+                        {
+                            //Create new list
+                            case 1:
+                                Console.Write("Enter shopping list name : ");
+                                string shoppingListName = Console.ReadLine();
+                                Console.WriteLine();
+                                using (StreamWriter writer = new StreamWriter($"./shopping-lists/{shoppingListName}.csv"))
+                                {
+                                    writer.Write("Name, Quantity, Price\n\n");
+                                    foreach (Item i in shoppingList)
+                                    {
+                                        writer.Write($"{i.title}, {i.quantity}, {i.unitPrice}\n");
+                                    }
+                                    Console.WriteLine("Shopping list created succesfully\n");
+                                }
+                                Console.Write("Press 'Enter' to return to the main menu\n------------------------\n\n");
+                                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                                break;
+
+                            //Reads in saved list
+                            case >= 2:
+                                string[] savedListArr = File.ReadAllLines($"./shopping-lists/{savedShoppingListFileName[listSelectionInt]}");
+                                string savedListVar = string.Join(",", savedListArr);
+                                var values = savedListVar.Split(',');
+
+                                //Used to skip first two lines in .csv to prevent adding them to shoppingList
+                                int skip = 1;
+                                int a = 4;
+                                int b = 5;
+                                int c = 6;
+                                foreach (var item in savedListArr)
+                                {
+                                    //To prevent adding in headings and blank line
+                                    if (skip <= 2)
+                                    {
+                                        skip++;
+                                        continue;
+                                    }
+                                    
+                                    title = values[a].ToString();
+                                    quantity = int.Parse(values[b]);                       
+                                    unitPrice = double.Parse(values[c]);
+                                    shoppingList.Add(new Item(title, quantity, unitPrice));
+
+                                    a += 3;
+                                    b += 3;
+                                    c += 3;
+                                }
+                                break;
+                            }
+                        }
                         break;
 
                     //Exit
