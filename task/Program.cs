@@ -16,8 +16,9 @@ namespace task
             string listSelection;
             int counter;
             string menu = "1. Add New Item  \n2. Show Total Cost \n3. Clear List \n4. Save List \n5. List All Items in Current List \n6. List All Saved Shopping Lists \n7. Change active list \n8. Exit \n\n";
+            string printSavedOrNewListChoice = "Select a saved shopping list or start a new list: \n\n1. Start a new shopping list";
 
-            Console.WriteLine("Select a saved shopping list or start a new list: \n\n1. Start a new shopping list");
+            Console.WriteLine(printSavedOrNewListChoice);
 
             //Lists all saved shopping lists
             getSavedShoppingLists(out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection, out counter);
@@ -137,25 +138,10 @@ namespace task
                     //Change active list
                     case "7":
                         {
-                            Console.WriteLine("Select a saved shopping list or start a new list: \n1. Start a new shopping list\n");
+                            Console.WriteLine(printSavedOrNewListChoice);
 
                             //Lists all saved shopping lists
                             getSavedShoppingLists(out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection, out counter);
-
-                            listSelection = "";
-                            counter = 2;
-                            while (listSelection == "")
-                            {
-                                foreach (FileInfo i in files)
-                                {
-                                    Console.WriteLine($"{counter}. {i.Name}");
-                                    savedShoppingListFileName.Add(i.Name);
-                                    counter++;
-                                }
-                                Console.WriteLine();
-                                listSelection = Console.ReadLine();
-                            }
-
                             printHorizontalLine();
 
                             listSelectionInt = int.Parse(listSelection) - 2;
