@@ -21,7 +21,7 @@ namespace task
             Console.WriteLine(printSavedOrNewListChoice);
 
             //Lists all saved shopping lists         
-            getSavedShoppingLists(out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection, out counter);
+            getSavedShoppingLists(2, out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection);
             printHorizontalLine();
 
             int listSelectionInt = int.Parse(listSelection) - 2;
@@ -141,19 +141,20 @@ namespace task
                             Console.WriteLine("Select a saved shopping list or start a new list: \n\n1. Return to the main menu \n2. Start a new shopping list");
 
                             //Lists all saved shopping lists
-                            getSavedShoppingLists(out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection, out counter);
+                            getSavedShoppingLists(3, out savedShoppingLists, out files, out savedShoppingListFileName, out listSelection);
                             printHorizontalLine();
 
-                            listSelectionInt = int.Parse(listSelection);
+                            listSelectionInt = int.Parse(listSelection) - 3;
+                            Console.WriteLine(listSelectionInt);
 
                             switch (listSelectionInt)
                             {
                                 //Return to main menu
-                                case 1:                               
+                                case -2:                               
                                     break;
                                     
                                 //Create new list
-                                case 2:
+                                case -1:
                                     saveToNewFile(shoppingList);
                                     postMenuSelection();
                                     break;
